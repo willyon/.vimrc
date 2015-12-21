@@ -1,0 +1,81 @@
+##############################################################
+该文本文件是我在Ubuntu14.04操作系统上，关于firefox浏览器插件Vimperator 的习惯键的映射编辑。以下内容放在 .vimperator文本文件中。该文本文件位于我的Ubuntu14.04用户主目录下。
+##############################################################
+
+1.
+//修改配置文件后，键入',s'，配置文件即时生效
+noremap ,s :so /home/willyon/.vimperatorrc<cr>
+
+2.
+//打开一个新标签
+//noremap ,d gH 
+
+3.
+//保存全部窗口并退出
+noremap ss :wq<cr>
+
+4.
+//重启窗口
+noremap ,z :restart<cr>
+
+5.
+//在当前标签页返回前一个URL
+noremap h H
+
+6.
+//在当前标签页回退后一个URL
+noremap l L
+
+7.
+//'：'映射为'.'
+noremap . :
+
+8.
+//翻到前一个标签页
+noremap a <c-p>
+
+9.
+//翻到后一个标签页
+noremap f <c-n>
+
+10.
+//收藏当前网页(即创建当前网页为标签)
+noremap m :bmark<cr>
+
+11.
+//在当前浏览页向下翻一页
+noremap J <c-d><CR>
+
+12.
+//在当前浏览页向上翻一页
+noremap K <c-u><CR>
+
+13.
+//打开google
+noremap ,g :tabopen www.google.com<cr>
+
+14.
+//打开百度
+noremap n :tabopen www.baidu.com<cr>
+
+15
+//给当前页可观测范围的可打开链接标号,输入该命令后，再输入要打开的链接的标号即可(或者输入该连接的名字也可)
+noremap sl ;b
+
+16.
+//退出命令框
+cnoremap qq  <esc>
+
+17.
+//复制选中内容
+noremap y Y
+
+18.
+//复制当前页地址(即URL)
+noremap Y y
+
+19.
+//上下页链接打开(因为vimperator无法识别中文，故要调整下参数)。这样就可以在浏览网页时，连按两次 [   向前翻一页，连按两次 ] 向后翻一页
+set nextpattern=\s*下一页|下一张|下一篇|下一頁|下页|后页\s*,^\bnext\b,\bnext\b,\bsuivant\b,^>$,^(>>|››|»)$,^(>|»),(>|»)$,\bmore\b
+set previouspattern=\s*上一页|上一张|上一篇|上一頁|上页|前页\s*,^\bprev|previous\b,\bprev|previous\b,\bprécédent\b,^<$,^(<<|‹‹|«)$,^(<|«),(<|«)$
+
