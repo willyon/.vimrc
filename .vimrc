@@ -50,7 +50,7 @@ inoremap " ""<esc>i
 
 inoremap ;; <><ESC>i
 
-inoremap /* /**/<ESC>i
+inoremap /* /**/<ESC>hi
 
 inoremap .. ()<ESC>i
 
@@ -401,4 +401,63 @@ let OmniCpp_DefaultNamespaces=["std"]
 let OmniCpp_ShowScopeInAbbr=1  
 
 let OmniCpp_ShowAccess=1
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""
+"10.vim-markdown插件
+"""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"注意：该插件针对类型为 .mkd
+"的文件会自动设置foldmethod=expr,其会对用rakenew_post生成的markdown文件产生折叠某处
+"展开和语法高亮的副作用
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"由于是用markdown写jekyll博客，故需额外对yaml语法字体进行高亮显示
+let g:vim_markdown_frontmatter=1
+
+"禁用自动折叠
+let g:vim_markdown_folding_disabled=1
+
+
+au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=mkd
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"11.vim插件 管理插件 vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+"be improved
+set nocompatible
+
+"required(该设置是必须的)
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+"let vundle manage vundle
+"required(也是必须的)
+Bundle 'gmarik/vundle'
+
+"vim-scripts repos
+Bundle 'bash-support.vim'
+Bundle 'perl-support.vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"利用vundle下载其它插件的方法：
+"1.将相应插件的github仓库路径，按如下方式填写在 .vimrc。
+"2.vim命令模式下 :BundleInstall 则会自动将按照正确方式，在 .vimrc 描述过的插件下载安装好
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"github网上vim-scripts仓库的插件，按以下格式填写(写插件(仓库)名即可)
+"Bundle 'FuzzyFinder'
+
+"在github其他用户仓库的插件，按以下格式填写(写 用户名/插件(仓库)名)
+"Bundle 'tope/vim-fugitive'
+
+"非上两种情况的，即不在github上的插件，按以下格式填写(写出插件所在位置的绝对路径)
+"Bundle 'git://git.wincent.com/command-t.git'
 

@@ -1,5 +1,7 @@
 ##############################################################
-该文本文件是我在Ubuntu14.04操作系统上，关于firefox浏览器插件Vimperator 的习惯键的映射编辑。以下内容放在 .vimperator文本文件中。该文本文件位于我的Ubuntu14.04用户主目录下。
+#系统：Ubuntu14.04
+#文件路径：/home/willyon/.vimperatorrc
+#用途：firefox浏览器插件 vimperator 的配置文件
 ##############################################################
 
 1.
@@ -8,7 +10,7 @@ noremap ,s :so /home/willyon/.vimperatorrc<cr>
 
 2.
 //打开一个新标签
-//noremap ,d gH 
+noremap ,d gH 
 
 3.
 //保存全部窗口并退出
@@ -32,7 +34,7 @@ noremap . :
 
 8.
 //翻到前一个标签页
-noremap a <c-p>
+nnoremap a <c-p>
 
 9.
 //翻到后一个标签页
@@ -56,7 +58,7 @@ noremap ,g :tabopen www.google.com<cr>
 
 14.
 //打开百度
-noremap n :tabopen www.baidu.com<cr>
+nnoremap n :tabopen www.baidu.com<cr> | <esc>
 
 15
 //给当前页可观测范围的可打开链接标号,输入该命令后，再输入要打开的链接的标号即可(或者输入该连接的名字也可)
@@ -64,18 +66,43 @@ noremap sl ;b
 
 16.
 //退出命令框
-cnoremap qq  <esc>
+cnoremap jk <esc>
 
 17.
-//复制选中内容
-noremap y Y
+//复制搜索栏中选中的内容
+nnoremap c gi<a-a><c-c><esc>
 
 18.
 //复制当前页地址(即URL)
-noremap Y y
+nnoremap Y y
 
 19.
 //上下页链接打开(因为vimperator无法识别中文，故要调整下参数)。这样就可以在浏览网页时，连按两次 [   向前翻一页，连按两次 ] 向后翻一页
 set nextpattern=\s*下一页|下一张|下一篇|下一頁|下页|后页\s*,^\bnext\b,\bnext\b,\bsuivant\b,^>$,^(>>|››|»)$,^(>|»),(>|»)$,\bmore\b
 set previouspattern=\s*上一页|上一张|上一篇|上一頁|上页|前页\s*,^\bprev|previous\b,\bprev|previous\b,\bprécédent\b,^<$,^(<<|‹‹|«)$,^(<|«),(<|«)$
+
+
+20.
+//退出搜索栏输入状态
+inoremap jk <esc>
+
+21.
+//删除搜索栏内容
+nnoremap dd gi<a-a><bs><esc>
+
+22.
+//进入搜索栏输入模式
+nnoremap i gi
+
+23.
+//退出当前页并显示前一标签页内容
+nnoremap q da
+
+24.
+//复制所选内容
+nnoremap yy <c-c>
+
+25.
+//在搜索栏粘贴刚才复制的内容
+nnoremap p gi<c-v>
 
