@@ -32,11 +32,14 @@ inoremap f, \
 
 inoremap jk <esc>
 
+"python格式配置
+"inoremap ; :
+
 "Python格式配置
 inoremap ,, {}<ESC>i
 
 "C格式配置：<ESC>表示回到命令行模式，i表示进入输入模式，<cr>表示换行，大写O表示在该行前一行插入
-"inoremap ,, {}<ESC>i<CR><ESC>O
+"inoremap ,, {}<ESC>i<CR><ESC>O(注意，这个在有后缀名的源代码文件中，在输入行，会自动缩进4空格)
 
 "python格式配置
 inoremap ' ''<esc>i
@@ -65,7 +68,7 @@ inoremap <C-u> <esc>gUiwea
 
 "将 hh 映射为 :nohl<cr> 去除在命令 :/<content>
 "后的字符高亮。其中content表示要查找的内容
-nnoremap hh :nohl<cr>
+nnoremap hl :nohl<cr>
 
 nnoremap ; :
 
@@ -101,6 +104,9 @@ nnoremap <F7> :! ./edit<cr>
 "打开viminfo的快捷键
 "nnoremap wr :rviminfo ./viminfo<cr>
 
+nnoremap ,a ^
+
+nnoremap ,l $
  
 
 
@@ -110,6 +116,9 @@ nnoremap <F7> :! ./edit<cr>
 
 "搜索高亮 
 set hlsearch 
+
+
+
 
 "为终端使用的背景调整配色，其中，用 bg 替代 background 亦可
 set background=dark
@@ -205,19 +214,17 @@ set incsearch
 "3.其它
 """""""""""
 "语法启用。只有启用了，一些语法设置才能生效，如语法高亮设置
-syntax enable 
+syntax enable
+
+"语法高亮
+syntax on
 
 "检测文件类型
-filetype on 
+filetype plugin on 
 
 "依文件类型设置自动缩进
 filetype plugin indent on 
 
-"语法高亮
-if has("syntax")
-      syntax on            " 条件成立，则开启语法高亮
-endif
-    colorscheme ron       "选择高亮色方案，vim自带的17种配色方案保存在/usr/share/vim/vim74/colors目录下
 
 "设置光标回到上次编辑的所在行开头
 if has("autocmd")
@@ -433,7 +440,8 @@ au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=mkd
 set nocompatible
 
 "required(该设置是必须的)
-filetype off
+"filetype
+"off(注意啊啊啊啊！！！！如果这个不注释掉的化，就没有代码高亮了。因为filetype on(前面已设置)之后才可以syntax on生效)
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -445,6 +453,8 @@ Bundle 'gmarik/vundle'
 "vim-scripts repos
 Bundle 'bash-support.vim'
 Bundle 'perl-support.vim'
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "利用vundle下载其它插件的方法：
@@ -460,4 +470,47 @@ Bundle 'perl-support.vim'
 
 "非上两种情况的，即不在github上的插件，按以下格式填写(写出插件所在位置的绝对路径)
 "Bundle 'git://git.wincent.com/command-t.git'
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"html标签语言编辑 快捷输入设置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"标题输入
+inoremap ;h1 <h1></h1><esc>4hi
+
+inoremap ;h2 <h2></h2><esc>4hi
+
+inoremap ;h3 <h3></h3><esc>4hi
+
+inoremap ;h4 <h4></h4><esc>4hi
+
+inoremap ;h5 <h5></h5><esc>4hi
+
+inoremap ;h6 <h6></h6><esc>4hi
+
+"li输入
+inoremap ;li <li></li><esc>5hi
+
+"img图片插入
+inoremap ;img <img src="" /><esc>3hi
+
+"a内容链接插入
+inoremap ;a <a href="" /><esc>3hi
+
+"ul输入(会自动缩进)
+inoremap ;ul <ul></ul><esc>4hi<cr><esc>O
+
+"html输入(会自动缩进)
+inoremap ;ht <html></html><esc>6hi<cr><esc>O
+
+"body输入(会自动缩进)
+inoremap ;bd <body></body><esc>6hi<cr><esc>O
+
+"div输入(会自动缩进)
+inoremap ;di <div></div><esc>5hi<cr><esc>O
+
+"table输入(会自动缩进)
+inoremap ;tb <table></table><esc>7hi<cr><esc>O
+
 

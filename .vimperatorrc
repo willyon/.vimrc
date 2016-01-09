@@ -58,7 +58,7 @@ noremap ,g :tabopen www.google.com<cr>
 
 14.
 //打开百度
-nnoremap n :tabopen www.baidu.com<cr> | <esc>
+nnoremap n :tabopen www.baidu.com<cr>
 
 15
 //给当前页可观测范围的可打开链接标号,输入该命令后，再输入要打开的链接的标号即可(或者输入该连接的名字也可)
@@ -70,7 +70,7 @@ cnoremap jk <esc>
 
 17.
 //复制搜索栏中选中的内容
-nnoremap c gi<a-a><c-c><esc>
+nnoremap yy gi<a-a><c-c><esc>
 
 18.
 //复制当前页地址(即URL)
@@ -100,7 +100,7 @@ nnoremap q da
 
 24.
 //复制所选内容
-nnoremap yy <c-c>
+nnoremap cc <c-c>
 
 25.
 //在搜索栏粘贴刚才复制的内容
