@@ -20,31 +20,34 @@ inoremap z, %
 
 inoremap x, *
 
-inoremap a, &
+inoremap a;; $
 
 inoremap s, !
 
 inoremap q, ?
 
-inoremap g, /
+inoremap g;; /
 
-inoremap f, \
+inoremap f;; \
 
 inoremap jk <esc>
+
+inoremap jl <esc>la
 
 "python格式配置
 "inoremap ; :
 
 "Python格式配置
-inoremap ,, {}<ESC>i
+"inoremap ,, {}<ESC>i
 
 "C格式配置：<ESC>表示回到命令行模式，i表示进入输入模式，<cr>表示换行，大写O表示在该行前一行插入
-"inoremap ,, {}<ESC>i<CR><ESC>O(注意，这个在有后缀名的源代码文件中，在输入行，会自动缩进4空格)
+"(注意，这个在有后缀名的源代码文件中，在输入行，会自动缩进4空格)
+inoremap ,, {}<ESC>i<CR><ESC>O 
 
 "python格式配置
-inoremap ' ''<esc>i
+inoremap ' ""<esc>i
 
-inoremap " ""<esc>i
+inoremap " ''<esc>i
 
 "c格式配置
 "inoremap ' ""<esc>i
@@ -70,15 +73,23 @@ inoremap <C-u> <esc>gUiwea
 "后的字符高亮。其中content表示要查找的内容
 nnoremap hl :nohl<cr>
 
-nnoremap ; :
+"标记语句
+nnoremap m ma
+nnoremap ; `a
+
+"nnoremap n mb
+"nnoremap b `b
 
 nnoremap ' :/
+
+"gg=G表示全局缩进，再加一个G表示跳到文件底部
+nnoremap w gg=GG
 
 "关闭当前标签
 nnoremap q :q<cr>
 
 "关闭全部标签
-nnoremap aa :qa<cr>
+"nnoremap aa :qa<cr>
 
 "保存
 nnoremap ss :w<cr> 
@@ -117,8 +128,8 @@ nnoremap ,l $
 "搜索高亮 
 set hlsearch 
 
-
-
+"设置代码折叠方法
+set foldmethod=indent
 
 "为终端使用的背景调整配色，其中，用 bg 替代 background 亦可
 set background=dark
@@ -163,16 +174,16 @@ set autoindent
 set smartindent     
 
 "设置制表符(tab键)的宽度(即向右缩进距离相当于4个空格(仅是距离相等)。此处用 ts 替代 tabstop 亦可)
-set tabstop=4      
+set tabstop=2      
 
 "将tab出来的空白转变为对应距离的空格个数(此处用 et 替代 expandtab 亦可)
 set expandtab
 
 "设置软制表符的宽度(此值最好与 tabstop 一致。在此，表示逢4空格进1制表符)  
-set softtabstop=4  
+set softtabstop=2 
 
 "(自动) 缩进使用的4个空格
-set shiftwidth=4   
+set shiftwidth=2  
 
 "使用 C/C++ 语言的自动缩进方式
 set cindent      
@@ -454,6 +465,40 @@ Bundle 'gmarik/vundle'
 Bundle 'bash-support.vim'
 Bundle 'perl-support.vim'
 
+"css取色插件(color.vim & webapi-vim)
+Bundle 'Rykka/colorv.vim'
+"needed for fetching schemes online
+Bundle 'mattn/webapi-vim' 
+
+"缩进垂直线显示插件
+Bundle 'nathanaelkane/vim-indent-guides'
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""
+"12.vim-indent-guides插件
+"""""""""""""""""""""""""""""""""""""""""
+"显示垂直缩进线命令 在命令模式下 ,ig
+"显示 :set cc=[Num] Num表示需要高亮的一列
+
+"设置是否自动开启对齐垂直线，1为自动开启，0为关闭，待输入 ,ig 命令再开启
+let g:indent_guides_enable_on_vim_startup=0
+
+"设置垂直线宽度
+let g:indent_guides_guide_size = 1 
+
+"自定义颜色(该设置颜色只在gvim中生效，而在终端中颜色仅取决于background的设置是dark还是light，垂直线根据bg颜色自动调整)
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=yellow   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+
+hi IndentGuidesOdd guibg=red ctermbg=3
+
+hi IndentGuidesEven guibg=green ctermbg=4
+
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -490,27 +535,150 @@ inoremap ;h5 <h5></h5><esc>4hi
 inoremap ;h6 <h6></h6><esc>4hi
 
 "li输入
-inoremap ;li <li></li><esc>5hi
+inoremap ;lil <li></li><esc>5hi
+
+"粗体格式(bold)
+inoremap ;bb <b></b><esc>3hi
+
+"粗体格式(strong)
+inoremap ;sg <strong></strong><esc>8hi
+
+"强调格式(emphasized)
+inoremap ;em <em></em><esc>4hi
+
+"强调格式(italic)
+inoremap ;ii <i></i><esc>3hi
+
+"大写格式(big)
+inoremap ;big <big></big><esc>5hi
+
+"小写格式(small)
+inoremap ;small <small></small><esc>7hi
+
+"上标格式(superscript)
+inoremap ;sup <sup></sup><esc>5hi
+
+"下标格式(subscript)
+inoremap ;sub <sub></sub><esc>5hi
 
 "img图片插入
-inoremap ;img <img src="" /><esc>3hi
+inoremap ;img <img src="/home/willyon/" alt=""/><esc>3hi
 
 "a内容链接插入
-inoremap ;a <a href="" /><esc>3hi
+inoremap ;aa <a href=""></a><esc>5hi
 
 "ul输入(会自动缩进)
-inoremap ;ul <ul></ul><esc>4hi<cr><esc>O
+inoremap ;ul <ul></ul><esc>4hi<cr><esc>O<esc>k3li<space>
 
 "html输入(会自动缩进)
-inoremap ;ht <html></html><esc>6hi<cr><esc>O
+inoremap ;html <html></html><esc>6hi<cr><esc>O
 
 "body输入(会自动缩进)
-inoremap ;bd <body></body><esc>6hi<cr><esc>O
+inoremap ;body <body></body><esc>6hi<cr><esc>O
 
 "div输入(会自动缩进)
-inoremap ;di <div></div><esc>5hi<cr><esc>O
+inoremap ;div <div class=""></div><esc>5hi<cr><esc>O<esc>k12li
 
-"table输入(会自动缩进)
-inoremap ;tb <table></table><esc>7hi<cr><esc>O
+"head输入（会自动缩进）
+inoremap ;head <head></head><esc>6hi<cr><esc>O
+
+"script输入
+inoremap ;script <script ></script><esc>8hi<cr><esc>O
+
+"在浏览器中显示本文件内容
+nmap <silent> ,v :exec '!exec firefox %'<CR>
+
+"预格式文本
+inoremap ;pre <pre></pre><esc>5hi<cr><esc>O
+
+"段落
+inoremap ;pp <p></p><esc>3hi
+
+"表单标签
+inoremap ;form <form></form><esc>6hi<cr><esc>O
+
+"在文本域建立输入项
+inoremap ;input <input type="" /><esc>3hi
+
+"换行
+inoremap ;br <br />
+
+"下拉列表
+inoremap ;select <select></select><esc>8hi<cr><esc>O
+
+"列表选项
+inoremap ;option <option value=""></option><esc>10hi
+
+"输入文本框(多行)
+inoremap ;text <textarea rows="10" cols="30"></textarea><esc>10hi<cr><esc>O
+
+"带标题的框
+inoremap ;field <fieldset></fieldset><esc>10hi<cr><esc>O
+
+inoremap ;legend <legend></legend><esc>8hi
+
+"base标签
+inoremap ;base <base target="_blank" />
+
+"meta字码标签
+inoremap ;metac <meta charset="utf-8" /><esc>
+
+"meta网页更新标签
+inoremap ;metah <meta http-equiv="refresh" content="2"><esc>
+
+"title标签
+inoremap ;title <title></title><esc>7hi
+
+"link标签(定义文档与外部资源之间的关系，最常用于链接样式表)
+inoremap ;css <link rel="stylesheet" type="text/css" href="/home/willyon/webDevelop/css/.css" /><esc>7hi
+
+"style标签(可在style中规定html元素在浏览器中呈现的样式,常用css样式)
+inoremap ;style <style type="text/css"></style><esc>7hi<cr><esc>O
+
+"noscript标签
+inoremap ;noscript <noscript></noscript><esc>10hi
+
+"th标签
+inoremap ;tht <th></th><esc>5hi
+
+"td标签
+inoremap ;tdt <td></td><esc>5hi
+
+"tr标签
+inoremap ;trt <tr ></tr><esc>4hi<cr><esc>O<esc>k5li
+
+"span标签
+inoremap ;span <span ></span><esc>7hi
+
+"button标签
+inoremap ;button <button type="button" onclick=""></button><esc>10hi<cr><esc>O
+
+"外部script文件
+inoremap ;js <script src="/home/willyon/webDevelop/js/.js"></script><esc>13hi
+
+"document.getElementById("")快捷输入设置
+inoremap ;di document.getElementById("")<esc>hi
+
+"document.getElementsByTagName("")快捷输入设置
+inoremap ;dt document.getElementsByTagName("")<esc>hi
+
+"document.getElementsByClassName("")快捷输入设置
+inoremap ;dc document.getElementsByClassName("")<esc>hi
+
+"background快捷输入设置
+inoremap ;bg background
+
+"微软雅黑快捷键
+inoremap ;micro Microsoft YaHei
+
+"function [函数名]()快捷输入设置
+inoremap ;fn function<space>()<esc>hi
+
+"在当前行尾部输入大括号{}快捷设置
+inoremap ;,, <esc>$a{}<esc>i<cr><esc>O
+
+"引入jQuery函数库
+inoremap ;jq <script src="/home/willyon/webDevelop/js/jquery-1.12.0.min.js"></script>
+
 
 
