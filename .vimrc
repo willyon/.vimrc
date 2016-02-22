@@ -14,21 +14,21 @@
 "在vim输入模式下，非递归映射,inore = input with no recursive
 
 "将 c, 映射为 #
-inoremap c, #  
+inoremap cc; #<esc>i
 
-inoremap z, %
+inoremap zz; %
 
-inoremap x, *
+inoremap xx; *
 
-inoremap a;; $
+inoremap aa; $
 
-inoremap s, !
+inoremap ss; !
 
-inoremap q, ?
+inoremap qq; ?
 
-inoremap g;; /
+inoremap g;; \
 
-inoremap f;; \
+inoremap ff; /
 
 inoremap jk <esc>
 
@@ -56,6 +56,10 @@ inoremap " ''<esc>i
 
 inoremap ;; <><ESC>i
 
+inoremap ;inor inoremap<space>
+
+inoremap ;nnor nnoremap<space>
+
 inoremap /* /**/<ESC>hi
 
 inoremap .. ()<ESC>i
@@ -74,16 +78,19 @@ inoremap <C-u> <esc>gUiwea
 nnoremap hl :nohl<cr>
 
 "标记语句
-nnoremap m ma
-nnoremap ; `a
+nnoremap m mA
+nnoremap ; `A
+
+nnoremap n mB
+nnoremap b `B
 
 "nnoremap n mb
 "nnoremap b `b
 
 nnoremap ' :/
 
-"gg=G表示全局缩进，再加一个G表示跳到文件底部
-nnoremap w gg=GG
+"mz表示标记当前行为 z ，gg=G表示全局缩进对齐
+nnoremap r mzgg=G`z
 
 "关闭当前标签
 nnoremap q :q<cr>
@@ -93,6 +100,9 @@ nnoremap q :q<cr>
 
 "保存
 nnoremap ss :w<cr> 
+
+"删除文本中多余的空行
+nnoremap ;kk  :g/^$/d<cr>
 
 "python文件解释执行 该句意思是：解释并执行当前文件目录下，名为 test.py 的文本文件
 nnoremap ee :!./test.py<cr>
@@ -129,7 +139,7 @@ nnoremap ,l $
 set hlsearch 
 
 "设置代码折叠方法
-set foldmethod=indent
+"set foldmethod=indent
 
 "为终端使用的背景调整配色，其中，用 bg 替代 background 亦可
 set background=dark
@@ -436,7 +446,7 @@ let OmniCpp_ShowAccess=1
 "由于是用markdown写jekyll博客，故需额外对yaml语法字体进行高亮显示
 let g:vim_markdown_frontmatter=1
 
-"禁用自动折叠
+"禁用自动折叠(要启用代码折叠功能，需要将 1 改为 0 )
 let g:vim_markdown_folding_disabled=1
 
 
@@ -473,6 +483,24 @@ Bundle 'mattn/webapi-vim'
 "缩进垂直线显示插件
 Bundle 'nathanaelkane/vim-indent-guides'
 
+"网页全尺寸截图
+Bundle 'GNOME/gnome-web-photo'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"利用vundle下载其它插件的方法：
+"1.将相应插件的github仓库路径，按如下方式填写在 .vimrc。
+"2.vim命令模式下 :BundleInstall 则会自动将按照正确方式，在 .vimrc 描述过的插件下载安装好
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"github网上vim-scripts仓库的插件，按以下格式填写(写插件(仓库)名即可)
+"Bundle 'FuzzyFinder'
+
+"在github其他用户仓库的插件，按以下格式填写(写 用户名/插件(仓库)名)
+"Bundle 'tope/vim-fugitive'
+
+"非上两种情况的，即不在github上的插件，按以下格式填写(写出插件所在位置的绝对路径)
+"Bundle 'git://git.wincent.com/command-t.git'
+
 
 
 
@@ -500,128 +528,147 @@ hi IndentGuidesEven guibg=green ctermbg=4
 
 
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"利用vundle下载其它插件的方法：
-"1.将相应插件的github仓库路径，按如下方式填写在 .vimrc。
-"2.vim命令模式下 :BundleInstall 则会自动将按照正确方式，在 .vimrc 描述过的插件下载安装好
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"github网上vim-scripts仓库的插件，按以下格式填写(写插件(仓库)名即可)
-"Bundle 'FuzzyFinder'
-
-"在github其他用户仓库的插件，按以下格式填写(写 用户名/插件(仓库)名)
-"Bundle 'tope/vim-fugitive'
-
-"非上两种情况的，即不在github上的插件，按以下格式填写(写出插件所在位置的绝对路径)
-"Bundle 'git://git.wincent.com/command-t.git'
-
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "html标签语言编辑 快捷输入设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "标题输入
-inoremap ;h1 <h1></h1><esc>4hi
+inoremap ;h1 <h1 class=""></h1><esc>6hi
 
-inoremap ;h2 <h2></h2><esc>4hi
+inoremap ;h2 <h2 class=""></h2><esc>6hi
 
-inoremap ;h3 <h3></h3><esc>4hi
+inoremap ;h3 <h3 class=""></h3><esc>6hi
 
-inoremap ;h4 <h4></h4><esc>4hi
+inoremap ;h4 <h4 class=""></h4><esc>6hi
 
-inoremap ;h5 <h5></h5><esc>4hi
+inoremap ;h5 <h5 class=""></h5><esc>6hi
 
-inoremap ;h6 <h6></h6><esc>4hi
+inoremap ;h6 <h6 class=""></h6><esc>6hi
+
 
 "li输入
-inoremap ;lil <li></li><esc>5hi
+inoremap ;lil <li></li><esc>4hi
 
 "粗体格式(bold)
-inoremap ;bb <b></b><esc>3hi
+inoremap ;bb <b class=""></b><esc>5hi
 
 "粗体格式(strong)
-inoremap ;sg <strong></strong><esc>8hi
+inoremap ;sg <strong class=""></strong><esc>10hi
 
 "强调格式(emphasized)
-inoremap ;em <em></em><esc>4hi
+inoremap ;em <em class=""></em><esc>6hi
 
 "强调格式(italic)
-inoremap ;ii <i></i><esc>3hi
+inoremap ;ii <i class=""></i><esc>5hi
 
 "大写格式(big)
-inoremap ;big <big></big><esc>5hi
+inoremap ;big <big class=""></big><esc>7hi
 
 "小写格式(small)
-inoremap ;small <small></small><esc>7hi
+inoremap ;small <small class=""></small><esc>9hi
 
 "上标格式(superscript)
-inoremap ;sup <sup></sup><esc>5hi
+inoremap ;sup <sup class=""></sup><esc>7hi
 
 "下标格式(subscript)
-inoremap ;sub <sub></sub><esc>5hi
+inoremap ;sub <sub class=""></sub><esc>7hi
 
 "img图片插入
-inoremap ;img <img src="/home/willyon/" alt=""/><esc>3hi
+inoremap ;img <img src="/home/willyon/ds//.png" alt=""/><esc>14hi
 
 "a内容链接插入
-inoremap ;aa <a href=""></a><esc>5hi
+inoremap ;aa <a href="#" class=""></a><esc>5hi
 
 "ul输入(会自动缩进)
-inoremap ;ul <ul></ul><esc>4hi<cr><esc>O<esc>k3li<space>
+inoremap ;ul <ul class=""></ul><esc>4hi<cr><esc>k12li
 
 "html输入(会自动缩进)
-inoremap ;html <html></html><esc>6hi<cr><esc>O
+inoremap ;html <html></html><esc>6hi<cr><esc>k
 
 "body输入(会自动缩进)
-inoremap ;body <body></body><esc>6hi<cr><esc>O
+inoremap ;body <body><cr></body><esc>O
 
 "div输入(会自动缩进)
-inoremap ;div <div class=""></div><esc>5hi<cr><esc>O<esc>k12li
+inoremap ;div <div class=""></div><esc>5hi<cr><esc>k13li
 
 "head输入（会自动缩进）
-inoremap ;head <head></head><esc>6hi<cr><esc>O
+inoremap ;head <head><cr></head><esc>O
 
 "script输入
-inoremap ;script <script ></script><esc>8hi<cr><esc>O
+inoremap ;scr <script ></script><esc>8hi<cr><esc>k
 
-"在浏览器中显示本文件内容
-nmap <silent> ,v :exec '!exec firefox %'<CR>
+"在firefox浏览器中显示本文件内容
+nmap ,v :exec '!exec firefox %'<CR>
 
 "预格式文本
-inoremap ;pre <pre></pre><esc>5hi<cr><esc>O
+inoremap ;pre <pre class=""></pre><esc>5hi<cr><esc>k12li
 
 "段落
-inoremap ;pp <p></p><esc>3hi
+inoremap ;pp <p class=""></p><esc>5hi
+
+"padding-left
+inoremap ;padl padding-left:px;<esc>2hi
+
+"padding-top
+inoremap ;padt padding-top:px;<esc>2hi
+
+"padding-left
+inoremap ;padl padding-left:px;<esc>2hi
+
+"padding-right
+inoremap ;padr padding-right:px;<esc>2hi
+
+"padding-bottom
+inoremap ;padb padding-bottom:px;<esc>2hi
+
+"margin-left
+inoremap ;marl margin-left:px;<esc>2hi
+
+"margin-right
+inoremap ;marr margin-right:px;<esc>2hi
+
+"margin-top
+inoremap ;mart margin-top:px;<esc>2hi
+
+"margin-bottom
+inoremap ;marb margin-bottom:px;<esc>2hi
 
 "表单标签
-inoremap ;form <form></form><esc>6hi<cr><esc>O
+inoremap ;form <form class=""></form><esc>6hi<cr><esc>k14li
 
 "在文本域建立输入项
-inoremap ;input <input type="" /><esc>3hi
+inoremap ;inp <input value="" type="" class=""/><esc>11hi
+
+"button标签
+inoremap ;btn <button class=""/></button><esc>9hi
 
 "换行
 inoremap ;br <br />
 
 "下拉列表
-inoremap ;select <select></select><esc>8hi<cr><esc>O
+inoremap ;sel <select class=""></select><esc>8hi<cr><esc>k15li
 
 "列表选项
 inoremap ;option <option value=""></option><esc>10hi
 
 "输入文本框(多行)
-inoremap ;text <textarea rows="10" cols="30"></textarea><esc>10hi<cr><esc>O
+inoremap ;txt <textarea class="" rows="10" cols="30"></textarea><esc>10hi<cr><esc>k17li
 
 "带标题的框
-inoremap ;field <fieldset></fieldset><esc>10hi<cr><esc>O
+inoremap ;fil <fieldset class=""></fieldset><esc>10hi<cr><esc>k17li
 
-inoremap ;legend <legend></legend><esc>8hi
+inoremap ;legend <legend class=""></legend><esc>10hi
 
 "base标签
-inoremap ;base <base target="_blank" />
+inoremap ;base <base target="_blank" /><esc>
 
 "meta字码标签
 inoremap ;metac <meta charset="utf-8" /><esc>
+
+"text-indent
+inoremap ;texi text-indent:px;<esc>2hi
+
+"text-align
+inoremap ;texa text-align:center;<esc>
 
 "meta网页更新标签
 inoremap ;metah <meta http-equiv="refresh" content="2"><esc>
@@ -630,46 +677,91 @@ inoremap ;metah <meta http-equiv="refresh" content="2"><esc>
 inoremap ;title <title></title><esc>7hi
 
 "link标签(定义文档与外部资源之间的关系，最常用于链接样式表)
-inoremap ;css <link rel="stylesheet" type="text/css" href="/home/willyon/webDevelop/css/.css" /><esc>7hi
+inoremap ;css <link rel="stylesheet" type="text/css" href="/home/willyon/ds/css/.css" /><esc>7hi
 
 "style标签(可在style中规定html元素在浏览器中呈现的样式,常用css样式)
-inoremap ;style <style type="text/css"></style><esc>7hi<cr><esc>O
+inoremap ;sty <style type="text/css"></style><esc>7hi<cr><esc>k
 
 "noscript标签
 inoremap ;noscript <noscript></noscript><esc>10hi
 
-"th标签
-inoremap ;tht <th></th><esc>5hi
+"label
+inoremap ;lab <label for=""></label><esc>9hi
 
-"td标签
-inoremap ;tdt <td></td><esc>5hi
+"float:left
+inoremap ;fll float:left;<esc>
+
+"float:right
+inoremap ;flr float:right;<esc>
+
+"position:absolute
+inoremap ;poa position:absolute;<esc>
+
+"position:relative
+inoremap ;por position:relative;<esc>
+
+"居中
+inoremap ;mara margin:0 auto;
 
 "tr标签
-inoremap ;trt <tr ></tr><esc>4hi<cr><esc>O<esc>k5li
+inoremap ;trt <tr class=""></tr><esc>4hi<cr><esc>k12li
+
+"th标签
+inoremap ;tht <th></th><esc>4hi
+
+"td标签
+inoremap ;tdt <td></td><esc>4hi
 
 "span标签
-inoremap ;span <span ></span><esc>7hi
+inoremap ;spa <span class=""></span><esc>8hi
 
 "button标签
-inoremap ;button <button type="button" onclick=""></button><esc>10hi<cr><esc>O
+inoremap ;btn <button class="" type="button"></button><esc>8hi<cr><esc>k15li
 
 "外部script文件
-inoremap ;js <script src="/home/willyon/webDevelop/js/.js"></script><esc>13hi
+inoremap ;js <script src="/home/willyon/ds/js/.js"></script><esc>13hi
 
 "document.getElementById("")快捷输入设置
-inoremap ;di document.getElementById("")<esc>hi
+inoremap ;did document.getElementById("");<esc>2hi
 
 "document.getElementsByTagName("")快捷输入设置
-inoremap ;dt document.getElementsByTagName("")<esc>hi
+inoremap ;dtn document.getElementsByTagName("");<esc>2hi
 
 "document.getElementsByClassName("")快捷输入设置
-inoremap ;dc document.getElementsByClassName("")<esc>hi
+inoremap ;dcn document.getElementsByClassName("");<esc>2hi
 
 "background快捷输入设置
-inoremap ;bg background
+inoremap ;bgd background:;<esc>i
+
+"background-color
+inoremap ;bgc background-color:#;<esc>i
+
+"border
+inoremap ;border border:solid 1px #;<esc>i
+
+"border-bottom
+inoremap ;bob border-bottom:solid 1px #;<esc>i
+
+"border-top
+inoremap ;bot border-top:solid 1px #;<esc>i
+
+"border-left
+inoremap ;bol border-left:solid 1px #;<esc>i
+
+"border-right
+inoremap ;bor border-right:solid 1px #;<esc>i
+
+"line-height
+inoremap ;line line-height:px;<esc>2hi
+
+"color
+inoremap ;col color:#;<esc>i
+
+"加入背景图片
+inoremap ;bgi background:url(/home/willyon/ds//.png) left center no-repeat;<esc>28hi
 
 "微软雅黑快捷键
-inoremap ;micro Microsoft YaHei
+inoremap ;mro "Microsoft YaHei"<esc>a,"微软雅黑";
 
 "function [函数名]()快捷输入设置
 inoremap ;fn function<space>()<esc>hi
@@ -680,5 +772,31 @@ inoremap ;,, <esc>$a{}<esc>i<cr><esc>O
 "引入jQuery函数库
 inoremap ;jq <script src="/home/willyon/webDevelop/js/jquery-1.12.0.min.js"></script>
 
+"dl
+inoremap ;dld <dl class=""></dl><esc>4hi<cr><esc>k12li
 
+"dt
+inoremap ;dtd <dt class=""></dt><esc>4hi<cr><esc>k12li
 
+"dd
+inoremap ;dd <dd class=""></dd><esc>4hi<cr><esc>k12li
+
+inoremap ;txd text-decoration:underline;<esc>i
+
+"文字加粗
+inoremap ;fonw font-weight:bold;<esc>
+
+"文字样式
+inoremap ;fons font-style:normal;<esc>i
+
+"文字大小
+inoremap ;fonz font-size:12px;<esc>2h
+
+"字体字体
+inoremap ;fonf font-family:;<esc>i
+
+"height
+inoremap ;hei height:px;<esc>2hi
+
+"width
+inoremap ;wid width:px;<esc>2hi
